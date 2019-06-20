@@ -24,17 +24,12 @@
         android:layout_toRightOf="@+id/icon_navdrawer"
         android:textColor="#212121"
         />
-        <view
-        android:layout_width="match_parent"
-        android:layout_height="0.2dp"
-        android:layout_marginRight="17dp"
-        android:background="#eeeeee"
-        />
-
-
-
-
 
     </RelativeLayout>
-
+    <view
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginRight="17dp"
+            android:background="#eeeeee"
+    />
 </LinearLayout>

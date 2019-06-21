@@ -1,6 +1,8 @@
 package com.ashish.echo.adapters
 
 import android.content.Context
+import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,9 @@ import android.widget.TextView
 import android.widget.Toast
 import com.ashish.echo.R
 import com.ashish.echo.Songs
+import com.ashish.echo.activities.MainActivity
+import com.ashish.echo.fragments.MainScreenFragment
+import com.ashish.echo.fragments.SongPlayingFragment
 import kotlinx.android.synthetic.main.row_custom_mainscreen_adapter.view.*
 
 class MainScreenAdapter(_songDetails: ArrayList<Songs>, _context: Context) :
@@ -29,7 +34,19 @@ class MainScreenAdapter(_songDetails: ArrayList<Songs>, _context: Context) :
         holder.trackTitle?.text = songObject?.songTitle
         holder.trackArtitst?.text = songObject?.artist
         holder.contentHolder?.setOnClickListener({
-            Toast.makeText(mContext, " Hey " + songObject?.songTitle, Toast.LENGTH_SHORT).show()
+            val songPlayingFragment = SongPlayingFragment()
+            var args=Bundle()
+            args.putString("songArtist",songObject?.artist)
+            args.putString("path",songObject?.songData)
+            args.putString("songTitle",songObject?.songTitle)
+            args.putInt("songId",songObject?.songID?.toInt() as Int)
+            args.putInt("songPosition",position)
+            args.putParcelableArrayList("songData",songDetails)
+            (mContext as FragmentActivity).supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.details_fragments,songPlayingFragment)
+                .commit()
+
         })
 
     }

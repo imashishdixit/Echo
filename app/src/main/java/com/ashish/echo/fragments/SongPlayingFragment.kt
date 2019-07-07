@@ -12,7 +12,6 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.*
@@ -27,12 +26,8 @@ import com.ashish.echo.database.EchoDatabase
 import com.cleveroad.audiovisualization.AudioVisualization
 import com.cleveroad.audiovisualization.DbmHandler
 import com.cleveroad.audiovisualization.GLAudioVisualizationView
-import kotlinx.android.synthetic.main.app_bar_main.view.*
-import java.lang.Exception
-import java.net.ConnectException
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 
 /**
@@ -136,6 +131,14 @@ class SongPlayingFragment : Fragment() {
 
         }
         fun updateTextView(songtitle: String, songArtist: String) {
+           var songTitleUpdated=songtitle
+            var songArtistUpdated=songArtist
+            if(songtitle.equals("<unknown>",true)){
+                songTitleUpdated="unknown"
+            }
+            if(songArtist.equals("<unknown>",true)){
+                songArtistUpdated="unknown"
+            }
             Statified.songTitleView?.setText(songtitle)
             Statified.songArtistView?.setText(songArtist)
 
@@ -223,6 +226,7 @@ class SongPlayingFragment : Fragment() {
 
         var view = inflater!!.inflate(R.layout.fragment_song_playing2, container, false)
         setHasOptionsMenu(true)
+        activity?.title="Now Playing"
         Statified.seekbar = view?.findViewById(R.id.seekBar)
         Statified.startTimeText = view?.findViewById(R.id.startTime)
         Statified.endTimeText = view?.findViewById(R.id.endTime)
@@ -460,6 +464,7 @@ class SongPlayingFragment : Fragment() {
         // next button starts from here
         Statified.nextImageButton?.setOnClickListener({
             Statified.currentSongHelper?.isPlaying = true
+            Statified.playpauseImageButton?.setBackgroundResource(R.drawable.pause_icon)
             if (Statified.currentSongHelper?.isShuffle as Boolean) {
                 Staticated.playNext("PlayNextLikeNormalShufffle")
             } else {

@@ -69,8 +69,8 @@ class NavigationDrawerAdapter(_contentList:ArrayList<String>,_getImages:IntArray
     }
 
     override fun getItemCount(): Int {
-       println("hi there")
-        return 10
+
+        return (contentlist as ArrayList<*>).size
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): NavViewHolder {

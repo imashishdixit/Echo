@@ -7,7 +7,6 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -22,14 +21,11 @@ import com.ashish.echo.R
 import com.ashish.echo.Songs
 import com.ashish.echo.adapters.FavouriteAdapter
 import com.ashish.echo.database.EchoDatabase
-import kotlinx.android.synthetic.main.fragment_favourite.*
-import kotlinx.android.synthetic.main.fragment_song_playing2.*
 
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
 
 /**
  * A simple [Fragment] subclass.
@@ -59,10 +55,10 @@ class FavouriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater!!.inflate(R.layout.fragment_favourite, container, false)
-
+        activity?.title="Favourites"
         noFavourites = view?.findViewById(R.id.noFavourite)
-        nowPlayingBottomBar = view.findViewById(R.id.hiddenBarMainScreen)
-        songTitle = view.findViewById(R.id.songTitle)
+        nowPlayingBottomBar = view.findViewById(R.id.hiddenBarFavScreen)
+        songTitle = view.findViewById(R.id.songTitleFavScreen)
         playPauseButton = view.findViewById(R.id.playPauseButton)
         recyclerView = view.findViewById(R.id.favouriteRecycler)
 
@@ -99,8 +95,9 @@ class FavouriteFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu?) {
         super.onPrepareOptionsMenu(menu)
+        val item=menu?.findItem(R.id.action_sort)
+        item?.isVisible=false
     }
-
     fun getSongsFromPhone(): ArrayList<Songs> {
         var arrayList = ArrayList<Songs>()
         var contentResolver = myActivity?.contentResolver
@@ -192,7 +189,7 @@ class FavouriteFragment : Fragment() {
             if (fetchListfromDevice != null) {
                 for (i in 0..fetchListfromDevice?.size - 1) {
                     for (j in 0..getListfromDatabase?.size as Int - 1) {
-                        if ((getListfromDatabase?.get(j)?.songID) == (fetchListfromDevice?.get(i)?.songID)) {
+                        if ((getListfromDatabase?.get(j)?.songID) == (fetchListfromDevice?.get(i).songID)) {
                             refreshList?.add((getListfromDatabase as ArrayList<Songs>)[j])
 
 

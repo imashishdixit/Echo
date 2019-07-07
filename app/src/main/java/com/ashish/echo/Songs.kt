@@ -12,8 +12,8 @@ class Songs(var songID: Long, var songTitle: String, var artist: String, var son
         parcel.readString(),
         parcel.readString(),
         parcel.readLong()
-    ) {
-    }
+    )
+    {}
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(songID)

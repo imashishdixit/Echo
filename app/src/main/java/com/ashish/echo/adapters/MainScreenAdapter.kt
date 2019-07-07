@@ -9,13 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import android.widget.Toast
 import com.ashish.echo.R
 import com.ashish.echo.Songs
-import com.ashish.echo.activities.MainActivity
-import com.ashish.echo.fragments.MainScreenFragment
 import com.ashish.echo.fragments.SongPlayingFragment
-import kotlinx.android.synthetic.main.row_custom_mainscreen_adapter.view.*
 
 class MainScreenAdapter(_songDetails: ArrayList<Songs>, _context: Context) :
     RecyclerView.Adapter<MainScreenAdapter.MyViewHolder>() {
@@ -48,6 +44,7 @@ class MainScreenAdapter(_songDetails: ArrayList<Songs>, _context: Context) :
             (mContext as FragmentActivity).supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.details_fragments,songPlayingFragment)
+                .addToBackStack("SongPlayingFragment")
                 .commit()
 
         })

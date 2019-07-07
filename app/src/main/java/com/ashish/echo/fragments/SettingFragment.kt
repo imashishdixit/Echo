@@ -35,6 +35,7 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view=inflater!!.inflate(R.layout.fragment_setting,container,false)
+        activity?.title="Settings"
         shakeSwitch=view?.findViewById(R.id.switchShake)
 
         // Inflate the layout for this fragment
@@ -43,6 +44,7 @@ class SettingFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onAttach(context: Context?) {
@@ -85,6 +87,8 @@ class SettingFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu?) {
         super.onPrepareOptionsMenu(menu)
+        val item=menu?.findItem(R.id.action_sort)
+        item?.isVisible=false
     }
 
 
